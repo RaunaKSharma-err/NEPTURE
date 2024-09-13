@@ -1,33 +1,30 @@
-import "../css/home.css";
+import { Footer } from "../components/footer";
 import { Header } from "../components/header";
+import "../css/home.css";
 
 export const Home = () => {
+  
   return (
     <>
-      <div className="header h-[40px] w-[100%] bg-white"></div>
-      <div className="bg-gray-300 h-[100vh] w-[100vw] flex flex-col justify-center relative">
-        <div className="container bg-gray-200 h-[70vh] w-[95vw] shadow-lg ml-[40px]">
-          <Header />
+      <Header />
+      <div className="hero bg-base-200 min-h-screen">
+        <div className="hero-content flex-col lg:flex-row-reverse">
           <img
-            src="../public/9175914a8f40dec08ffd5d773bff42dd-ai-brush-removebg-u60xxov-x7OZl-hlM-transformed.png"
-            className="w-[600px] h-[600px] absolute right-36 top-6 overflow-hidden"
+            src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+            className="max-w-sm rounded-lg shadow-2xl"
           />
-          <p className="mt-14 mb-3 ml-[70px] font-bold text-black">
-            Life is Very Short to Argue
-          </p>
-          <p className="font-bold tracking-wider w-[600px] text-5xl text-black ml-14">
-            Just Plan Your Trip And Fly Around !
-          </p>
-          <p className="w-[400px] text-black mt-3 ml-14">
-            Start Your Adventure with us in a click and lets explore the nature
-            of the world together.
-          </p>
-          <button className="btn ml-14 mt-8 tracking-widest">
-            Plan Your Trip
-          </button>
+          <div>
+            <h1 className="text-5xl font-bold">Box Office News!</h1>
+            <p className="py-6">
+              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+              et a id nisi.
+            </p>
+            <button className="btn btn-primary">Get Started</button>
+          </div>
         </div>
-        <div className="container bg-white h-[30vh] w-[95vw] ml-[40px] shadow-lg z-10"></div>
       </div>
+      <Footer />
     </>
   );
 };

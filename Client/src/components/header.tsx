@@ -3,75 +3,80 @@ import "../css/header.css";
 export const Header = () => {
   return (
     <>
-      <div className="navbar text-black mt-3 pl-10 pr-20">
+      <div className="navbar bg-BLACK">
         <div className="navbar-start">
           <div className="dropdown">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost lg:hidden font-bold"
-            >
-              NEPTURE
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
             </div>
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a href="">Booking</a>
+                <a>Item 1</a>
               </li>
               <li>
-                <a href="">Packages</a>
+                <a>Parent</a>
                 <ul className="p-2">
                   <li>
-                    <a href="">Package 1</a>
+                    <a>Submenu 1</a>
                   </li>
                   <li>
-                    <a href="">Package 2</a>
+                    <a>Submenu 2</a>
                   </li>
                 </ul>
               </li>
               <li>
-                <a href="">Schedule</a>
-              </li>
-              <li>
-                <a href="">About Us</a>
+                <a>Item 3</a>
               </li>
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl font-bold tracking-widest">
-            NEPTURE
-          </a>
+          <a href="/" className="btn btn-ghost text-xl">NEPTURE</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Booking</a>
+              <a>Item 1</a>
             </li>
             <li>
               <details>
-                <summary>Packages</summary>
+                <summary>Parent</summary>
                 <ul className="p-2">
                   <li>
-                    <a>Package 1</a>
+                    <a>Submenu 1</a>
                   </li>
                   <li>
-                    <a>Package 2</a>
+                    <a>Submenu 2</a>
                   </li>
                 </ul>
               </details>
             </li>
             <li>
-              <a>Schedule</a>
-            </li>
-            <li>
-              <a>About Us</a>
+              <a>Item 3</a>
             </li>
           </ul>
         </div>
-        <div className="navbar-end flex gap-7">
-          <a className="font-bold text-black">Login</a>
-          <a className="btn">Sign Up</a>
+        <div className="navbar-end flex gap-4">
+          <a href="/login" className="font-bold">
+            Login
+          </a>
+          <a href="/signup" className="btn">
+            Sign Up
+          </a>
         </div>
       </div>
     </>
