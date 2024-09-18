@@ -1,9 +1,11 @@
 import "../css/header.css";
+import Login from "../pages/login";
+import SignUp from "../pages/Signup";
 
 export const Header = () => {
   return (
     <>
-      <div className="navbar bg-BLACK">
+      <div className="navbar absolute z-10 text-WHITE">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -45,9 +47,11 @@ export const Header = () => {
               </li>
             </ul>
           </div>
-          <a href="/" className="btn btn-ghost text-xl">NEPTURE</a>
+          <a href="/" className="btn btn-ghost text-3xl">
+            NEPTURE
+          </a>
         </div>
-        <div className="navbar-center hidden lg:flex">
+        <div className="navbar-center hidden lg:flex text-WHITE">
           <ul className="menu menu-horizontal px-1">
             <li>
               <a>Item 1</a>
@@ -71,12 +75,8 @@ export const Header = () => {
           </ul>
         </div>
         <div className="navbar-end flex gap-4">
-          <a href="/login" className="font-bold">
-            Login
-          </a>
-          <a href="/signup" className="btn">
-            Sign Up
-          </a>
+          <Login />
+          <SignUp />
         </div>
       </div>
     </>

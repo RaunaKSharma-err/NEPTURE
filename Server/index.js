@@ -12,11 +12,15 @@ connectMongoDB("mongodb://127.0.0.1:27017/Nepture")
   .catch((err) => console.log("MongoDB error", err));
 
 const staticRouter = require("./src/routes/user.routes");
+const {
+  checkForAuthenticatedUser,
+} = require("./src/middlewares/authentication");
 
 // Middlewares
 app.use(express.json());
 app.use(cors(corsOption));
 app.use(express.urlencoded({ extended: true }));
+app.use(checkForAuthenticatedUser("token"));
 
 //routes
 app.use("/", staticRouter);

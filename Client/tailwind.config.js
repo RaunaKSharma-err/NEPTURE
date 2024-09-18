@@ -5,6 +5,9 @@ export default {
     extend: {
       colors: {
         BLACK: "#000000",
+        ORANGE: "#FF6600",
+        WHITE: "#F5F5F5",
+        VOILET: "#604CC3",
       },
     },
   },

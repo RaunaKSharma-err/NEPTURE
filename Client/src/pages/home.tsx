@@ -3,26 +3,21 @@ import { Header } from "../components/header";
 import "../css/home.css";
 
 export const Home = () => {
-  
   return (
     <>
       <Header />
-      <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-            className="max-w-sm rounded-lg shadow-2xl"
-          />
-          <div>
-            <h1 className="text-5xl font-bold">Box Office News!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-            <button className="btn btn-primary">Get Started</button>
-          </div>
-        </div>
+      <img
+        className="w-[100vw] h-[100vh] relative heroImg"
+        src="/StockCake-Desert Road Trip_1726650263.jpg"
+      />
+      <div className="content absolute top-[355px] left-5 text-ORANGE font-bold">
+        <p className="ml-4">
+          LIFE IS <span className="text-WHITE ml-5">SHORT TO ARGUE</span>
+        </p>
+        <h1 className="text-5xl ">
+          Just <span className="text-WHITE pl-4">Plan Your Trip</span> <br />{" "}
+          With Us <span className="text-WHITE">And Fly Around</span>
+        </h1>
       </div>
       <Footer />
     </>
