@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const app = express();
 const cors = require("cors");
 const corsOption = {
@@ -18,6 +19,7 @@ const {
 
 // Middlewares
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors(corsOption));
 app.use(express.urlencoded({ extended: true }));
 app.use(checkForAuthenticatedUser("token"));

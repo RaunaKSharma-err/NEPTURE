@@ -1,8 +1,9 @@
 import axios from "axios";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState } from "react";
 
 interface formField {
   fullName: string;
@@ -11,14 +12,15 @@ interface formField {
 }
 
 const SignUp = () => {
-  //   const [currentState, setCurrentState] = useState<string>("");
+  const navigate = useNavigate();
+  const [getLogin, setLogin] = useState<string>("");
   const { register, handleSubmit } = useForm<formField>();
   const url = "http://localhost:5000/";
   const onSubmit: SubmitHandler<formField> = async (data) => {
     try {
       await axios.post(`${url}signup`, data);
       toast.success("Account created!");
-      //   setCurrentState("login");
+      window.location.href = "/#login";
     } catch (error) {
       console.log("error while signup: ", error);
       toast.error("Email Already Exists!");
@@ -26,12 +28,18 @@ const SignUp = () => {
   };
   return (
     <>
-      <a href="#signup" className="btn bg-ORANGE border-none text-WHITE font-bold">
+      <a
+        href="#signup"
+        className="btn bg-BLACK border-none text-WHITE font-bold"
+      >
         SignUp
       </a>
       <div className="modal" role="dialog" id="signup">
-        <div className="modal-box">
-          <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
+        <div className="modal-box bg-BLACK">
+          <form
+            className="card-body bg-BLACK"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Username</span>
@@ -39,7 +47,7 @@ const SignUp = () => {
               <input
                 type="text"
                 placeholder="username"
-                className="input input-bordered"
+                className="input input-bordered bg-BLACK"
                 required
                 {...register("fullName")}
               />
@@ -51,7 +59,7 @@ const SignUp = () => {
               <input
                 type="email"
                 placeholder="email"
-                className="input input-bordered"
+                className="input input-bordered bg-BLACK"
                 required
                 {...register("email")}
               />
@@ -63,7 +71,7 @@ const SignUp = () => {
               <input
                 type="password"
                 placeholder="password"
-                className="input input-bordered"
+                className="input input-bordered bg-BLACK"
                 required
                 {...register("password", {
                   minLength: {
@@ -73,13 +81,13 @@ const SignUp = () => {
                 })}
               />
               <label className="label mt-3">
-                <a href="/login" className="label-text-alt link link-hover">
+                <a href="/#login" className="label-text-alt link link-hover">
                   Already have account? <span>Login</span>
                 </a>
               </label>
             </div>
             <div className="form-control mt-4">
-              <button type="submit" className="btn btn-primary font-bold">
+              <button type="submit" className="btn font-bold">
                 Sign Up
               </button>
             </div>

@@ -1,3 +1,4 @@
 .heroImg{
-    border-bottom-left-radius: 80%;
+    /* border-bottom-left-radius: 80%; */
+    object-fit: cover;
 }

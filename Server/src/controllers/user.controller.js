@@ -17,8 +17,6 @@ async function handleSignup(req, res) {
       email,
       password: hashedPass,
     });
-    console.log("user created successfully");
-
     res.status(201).json({ message: "user created successfully" });
   } catch (error) {
     console.log("error: ", error);
@@ -37,7 +35,6 @@ const handleLogin = async (req, res) => {
         .status(200)
         .json({ message: "User login successfull" });
     }
-    throw new Error("User doesnot exists");
   } catch (error) {
     console.log("login error: ", error);
     return res.status(404).json({ message: "User not found!" });

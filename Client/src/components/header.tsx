@@ -8,7 +8,7 @@ export const Header = () => {
       <div className="navbar absolute z-10 text-WHITE">
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost text-BLACK lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -26,51 +26,57 @@ export const Header = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-BLACK rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a>Item 1</a>
+                <a>Home</a>
               </li>
               <li>
-                <a>Parent</a>
-                <ul className="p-2">
+                <a>Package</a>
+                <ul className="p-2 bg-BLACK">
                   <li>
-                    <a>Submenu 1</a>
+                    <a>Special Package</a>
                   </li>
                   <li>
-                    <a>Submenu 2</a>
+                    <a>Delux Package</a>
                   </li>
                 </ul>
               </li>
               <li>
-                <a>Item 3</a>
+                <a>Places</a>
+              </li>
+              <li>
+                <a>About</a>
               </li>
             </ul>
           </div>
-          <a href="/" className="btn btn-ghost text-3xl">
+          <a href="/" className="btn btn-ghost text-3xl text-WHITE font-bold">
             NEPTURE
           </a>
         </div>
         <div className="navbar-center hidden lg:flex text-WHITE">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Item 1</a>
+              <a>Home</a>
             </li>
             <li>
               <details>
-                <summary>Parent</summary>
-                <ul className="p-2">
+                <summary>Package</summary>
+                <ul className="p-2 bg-BLACK">
                   <li>
-                    <a>Submenu 1</a>
+                    <a>Special Package</a>
                   </li>
                   <li>
-                    <a>Submenu 2</a>
+                    <a>Delux Package</a>
                   </li>
                 </ul>
               </details>
             </li>
             <li>
-              <a>Item 3</a>
+              <a>Places</a>
+            </li>
+            <li>
+              <a>About</a>
             </li>
           </ul>
         </div>

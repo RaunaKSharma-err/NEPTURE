@@ -16,8 +16,8 @@ const Login = () => {
   const onSubmit: SubmitHandler<formField> = async (data) => {
     try {
       await axios.post(`${url}login`, data);
-      toast.success("Account created!");
-      // setCurrentState("login");
+      toast.success("Login success");
+      window.location.href = "/";
     } catch (error) {
       console.log("error while login: ", error);
       toast.error("User doesn't Exists!");
@@ -25,12 +25,15 @@ const Login = () => {
   };
   return (
     <>
-      <a href="#login" className=" text-WHITE">
+      <a href="#login" className=" text-WHITE font-bold">
         Login
       </a>
       <div className="modal" role="dialog" id="login">
-        <div className="modal-box">
-          <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
+        <div className="modal-box bg-BLACK">
+          <form
+            className="card-body bg-BLACK"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -38,7 +41,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="email"
-                className="input input-bordered"
+                className="input input-bordered bg-BLACK"
                 required
                 {...register("email")}
               />
@@ -50,7 +53,7 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="password"
-                className="input input-bordered"
+                className="input input-bordered bg-BLACK"
                 required
                 {...register("password", {
                   minLength: {
@@ -60,13 +63,13 @@ const Login = () => {
                 })}
               />
               <label className="label mt-3">
-                <a href="/login" className="label-text-alt link link-hover">
+                <a href="/#signup" className="label-text-alt link link-hover">
                   Not a member? <span>Signup</span>
                 </a>
               </label>
             </div>
             <div className="form-control mt-4">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn">
                 Login
               </button>
             </div>
