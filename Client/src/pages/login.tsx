@@ -1,7 +1,11 @@
 import axios from "axios";
+import { useCookies } from "react-cookie";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useUserContext } from "../context/loginContext";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 interface formField {
   fullName: string;
@@ -10,17 +14,34 @@ interface formField {
 }
 
 const Login = () => {
-  // const [currentState, setCurrentState] = useState<string>("");
+  const navigate = useNavigate();
+  const [cookies, setCookies] = useCookies(["user"]);
   const { register, handleSubmit } = useForm<formField>();
+  const { setUser } = useUserContext();
   const url = "http://localhost:5000/";
+
+  useEffect(() => {
+    if (cookies.user && cookies.user.user.fullName && cookies.user.user.email) {
+      setUser({
+        fullName: cookies.user.user.fullName,
+        email: cookies.user.user.email,
+      });
+    }
+  }, [cookies, setUser]);
+
   const onSubmit: SubmitHandler<formField> = async (data) => {
     try {
-      await axios.post(`${url}login`, data);
+      const User = await axios.post(`${url}login`, data);
+      if (!User) {
+        throw new Error("user not found");
+      }
+      setCookies("user", User.data);
+      setUser(cookies.user);
       toast.success("Login success");
-      window.location.href = "/";
+      navigate("/");
     } catch (error) {
       console.log("error while login: ", error);
-      toast.error("User doesn't Exists!");
+      toast.error("incorrect username or password!");
     }
   };
   return (
@@ -87,5 +108,4 @@ const Login = () => {
     </>
   );
 };
-
 export default Login;

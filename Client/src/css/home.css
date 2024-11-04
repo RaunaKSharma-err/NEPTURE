@@ -2,3 +2,14 @@
     /* border-bottom-left-radius: 80%; */
     object-fit: cover;
 }
+.content1{
+    font-size: clamp(0.8rem,1vw,2rem);
+}
+.content2{
+    font-size: clamp(2rem,3.5vw,3rem);
+}
+@media (max-width: 600px) {
+    .heroImg{
+        background-image: url('/Client/public/woman-being-ready-vacation-with-luggage-travel-essentials_23-2148434343.jpg');
+    }
+}

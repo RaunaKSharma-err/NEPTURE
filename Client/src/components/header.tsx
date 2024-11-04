@@ -1,14 +1,33 @@
+import { useEffect, useState } from "react";
+import { useUserContext } from "../context/loginContext";
 import "../css/header.css";
 import Login from "../pages/login";
 import SignUp from "../pages/Signup";
+import { useCookies } from "react-cookie";
 
 export const Header = () => {
+  const { user } = useUserContext();
+  const [isLogout, setIsLogout] = useState(false);
+  const [, , removeCookie] = useCookies(["user"]);
+
+  useEffect(() => {
+    if (isLogout == true) {
+      removeCookie("user");
+      setIsLogout(false);
+      window.location.href = "/";
+    }
+  }, [isLogout]);
+
   return (
     <>
       <div className="navbar absolute z-10 text-WHITE">
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost text-BLACK lg:hidden">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost text-BLACK lg:hidden"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -29,7 +48,7 @@ export const Header = () => {
               className="menu menu-sm dropdown-content bg-BLACK rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a>Home</a>
+                <a href="/">Home</a>
               </li>
               <li>
                 <a>Package</a>
@@ -46,18 +65,21 @@ export const Header = () => {
                 <a>Places</a>
               </li>
               <li>
-                <a>About</a>
+                <a href="/about">About</a>
               </li>
             </ul>
           </div>
-          <a href="/" className="btn btn-ghost text-3xl text-WHITE font-bold">
-            NEPTURE
+          <a
+            href="/"
+            className="btn btn-ghost text-5xl text-BLACK font-bold SiteLogo"
+          >
+            Nepture
           </a>
         </div>
         <div className="navbar-center hidden lg:flex text-WHITE">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Home</a>
+              <a href="/">Home</a>
             </li>
             <li>
               <details>
@@ -76,14 +98,50 @@ export const Header = () => {
               <a>Places</a>
             </li>
             <li>
-              <a>About</a>
+              <a href="/about">About</a>
             </li>
           </ul>
         </div>
-        <div className="navbar-end flex gap-4">
-          <Login />
-          <SignUp />
-        </div>
+        {user ? (
+          <div className="navbar-end flex gap-4">
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full border-BLACK border-solid border-2">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                <li>
+                  <a className="justify-between">
+                    Profile
+                    <span className="badge">New</span>
+                  </a>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li onClick={() => setIsLogout(!isLogout)}>
+                  <a>Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        ) : (
+          <div className="navbar-end flex gap-4">
+            <Login />
+            <SignUp />
+          </div>
+        )}
       </div>
     </>
   );

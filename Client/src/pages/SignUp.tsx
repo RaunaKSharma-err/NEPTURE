@@ -1,7 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -12,8 +10,6 @@ interface formField {
 }
 
 const SignUp = () => {
-  const navigate = useNavigate();
-  const [getLogin, setLogin] = useState<string>("");
   const { register, handleSubmit } = useForm<formField>();
   const url = "http://localhost:5000/";
   const onSubmit: SubmitHandler<formField> = async (data) => {

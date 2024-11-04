@@ -26,14 +26,24 @@ async function handleSignup(req, res) {
 
 const handleLogin = async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email, password } = req.body;
     const user = await User.findOne({ email });
-    if (user) {
-      const token = createTokenForUser(user);
-      res
-        .cookie("token", token)
-        .status(200)
-        .json({ message: "User login successfull" });
+    try {
+      if (user) {
+        const ismatched = await bcrypt.compare(password, user.password);
+        if (ismatched) {
+          createTokenForUser(user);
+          const userData = {
+            fullName: user.fullName,
+            email: user.email,
+          };
+          res
+            .status(200)
+            .json({ message: "User login successfull", user: userData });
+        }
+      }
+    } catch (error) {
+      res.status(401).json({ message: "Incorret credentials!" });
     }
   } catch (error) {
     console.log("login error: ", error);
