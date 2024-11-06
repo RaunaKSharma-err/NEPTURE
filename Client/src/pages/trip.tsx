@@ -1,3 +1,9 @@
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { LatLngExpression } from "leaflet";
+import axios from "axios";
+import apiKey from "../components/api";
+import "react-toastify/dist/ReactToastify.css";
+import "leaflet/dist/leaflet.css";
 import { Header } from "@/components/header";
 import { useUserContext } from "@/context/loginContext";
 import { useState, ChangeEvent, FormEvent } from "react";
@@ -9,6 +15,7 @@ import {
   FaUsers,
   FaMapMarkedAlt,
   FaRegClock,
+  FaSearch,
 } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -44,7 +51,6 @@ interface Errors {
 }
 
 const TripPlan: React.FC = () => {
-  const [formSubmit, setFormSubmit] = useState(false);
   const { user } = useUserContext();
   const [formData, setFormData] = useState<FormData>({
     tripName: "",
@@ -127,13 +133,47 @@ const TripPlan: React.FC = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-
+    toast.success("hello");
     if (user != null && formData.tripName != "") {
-      toast.success("Form submitted");
-      console.log(formData);
-      setFormSubmit(true);
+      // toast.success("Form submitted");
+      // console.log(formData);
+      // return;
     } else {
       toast.warning("Failed to submit form");
+    }
+  };
+
+  // --------map------
+  const API_KEY = apiKey; // Replace with your OpenCage API key
+
+  const MapCenterUpdater = ({ center }: { center: LatLngExpression }) => {
+    const map = useMap();
+    map.flyTo(center, map.getZoom(), { animate: true, duration: 2 }); // animate over 2 seconds
+    return null;
+  };
+
+  const [center, setCenter] = useState<LatLngExpression>([27.0, 84.8667]); // Default to Birgunj
+
+  const handleLocationSearch = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.opencagedata.com/geocode/v1/json`,
+        {
+          params: {
+            q: formData.destinations,
+            key: API_KEY,
+          },
+        }
+      );
+      const results = response.data.results;
+      if (results && results.length > 0) {
+        const { lat, lng } = results[0].geometry;
+        setCenter([lat, lng]);
+      } else {
+        toast.warning("Location not found");
+      }
+    } catch (error) {
+      console.error("Error fetching location data:", error);
     }
   };
 
@@ -201,14 +241,24 @@ const TripPlan: React.FC = () => {
                 >
                   Destination(s)
                 </label>
-                <input
-                  type="text"
-                  id="destinations"
-                  name="destinations"
-                  value={formData.destinations}
-                  onChange={handleChange}
-                  className="mt-1 block w-full h-[40px] p-2 text-WHITE text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                />
+                <div className="flex">
+                  <input
+                    type="text"
+                    id="destinations"
+                    name="destinations"
+                    value={formData.destinations}
+                    onChange={handleChange}
+                    className="mt-1 block w-full h-[40px] p-2 text-WHITE text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleLocationSearch}
+                    className="btn ml-4"
+                  >
+                    Search
+                    <FaSearch className="text-WHITE" />
+                  </button>
+                </div>
               </div>
 
               <div>
@@ -244,6 +294,23 @@ const TripPlan: React.FC = () => {
                   className="mt-1 block w-full h-[40px] p-2 text-WHITE text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 />
               </div>
+            </div>
+            <div className="mt-8">
+              <MapContainer
+                center={center}
+                zoom={13}
+                scrollWheelZoom={false}
+                className="h-[300px] w-[100%]"
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <MapCenterUpdater center={center} />
+                <Marker position={center}>
+                  <Popup>{formData.destinations || "Selected Location"}</Popup>
+                </Marker>
+              </MapContainer>
             </div>
           </div>
 
@@ -582,16 +649,14 @@ const TripPlan: React.FC = () => {
               type="submit"
               className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
             >
-              <label htmlFor="my_modal_6" className="w-[150px] h-[150px]">
-                Plan My Trip
-              </label>
+              Plan My Trip
             </button>
           </div>
         </form>
       </div>
       {/* The button to open modal */}
 
-      <input type="checkbox" id="my_modal_6" className="modal-toggle" />
+      {/* <input type="checkbox" id="my_modal_6" className="modal-toggle" />
       <div className="modal" role="dialog">
         <div className="modal-box">
           <h3 className="text-lg font-bold">Hello!</h3>
@@ -602,7 +667,7 @@ const TripPlan: React.FC = () => {
             </label>
           </div>
         </div>
-      </div>
+      </div> */}
       <ToastContainer />
     </>
   );
